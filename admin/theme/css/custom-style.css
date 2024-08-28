@@ -1,0 +1,28 @@
+.data-table-customize{
+    max-height: 600px;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+.data-table-customize .card-header {
+    position: sticky;
+    top: 0;
+    background: #f2f2f2;
+    z-index: 9;
+}
+.card-header, .card-footer button {
+    background-color: #272c33 !important;
+    border-color: #272c33 !important;
+}
+.dropdown-toggle::after{
+    display: none !important;
+}
+.dropdown .dropdown-menu.show {
+    inset: auto !important;
+    right: 0 !important;
+}
+.dropdown {
+    width: max-content;
+}
+.modal-open .modal-backdrop {
+    display: none;
+}

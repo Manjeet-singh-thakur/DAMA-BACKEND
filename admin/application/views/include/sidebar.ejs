@@ -1,0 +1,211 @@
+<aside id="left-panel" class="left-panel">
+  <nav class="navbar navbar-expand-sm navbar-default">
+    <div class="navbar-header">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#main-menu"
+        aria-controls="main-menu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fa fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="./"
+        ><img src="theme/images/logo.svg" alt="Logo"
+      /></a>
+      
+    </div>
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand hidden" href="./"><img src="theme/images/logo.svg" alt="Logo"></a>
+        </div>
+
+
+                  <!--------------------Dashboard -->
+
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/admin/dashboard"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
+
+                <!--------------- User Managment---------------------------------- -->
+                <div class="" id="USER">
+                  <h3 class="menu-title">Users Management</h3>
+                  <li class="dropdown">
+                      <a href="/admin/create-user" id="CREATE"> <i class="menu-icon fa fa-user"></i>Create User</a>
+                      <a href="/admin/users-list" id="MANAGE"> <i class="menu-icon fa fa-list"></i>Users List</a>
+                  </li>
+                </div>
+
+              <!----------------- News--------------------------------- -->
+
+                <div class="" id="NEWS">
+                  <h3 class="menu-title">News Management</h3>
+                  <li class="dropdown">
+                      <a href="/admin/news"> <i class="menu-icon fa fa-user"></i>Create News</a>
+                      <a href="/admin/manage-news-list"> <i class="menu-icon fa fa-list"></i>Manage News</a>
+                  </li>
+                </div>
+
+
+                <!-- Blog------------------------------>
+                <div class="" id="BLOG">
+                  <h3 class="menu-title">Blog Management</h3>
+                  <li class="dropdown" id="blog-elements">
+                      <a href="/admin/blog"id="CREATE2" > <i class="menu-icon fa fa-user"></i>Create Blog</a>
+                      <a href="/admin/manage-blog-list"> <i class="menu-icon fa fa-list"></i>Manage Blog</a>
+                  </li>
+                </div>
+
+                <!--------------- Event----------------------------------------- -->
+                <div class="" id="EVENT">
+                  <h3 class="menu-title">Events Management</h3>
+                  <li class="dropdown">
+                    <a href="/admin/event"> <i class="menu-icon fa fa-user"></i>Create Event</a>
+                    <a href="/admin/get-event-list"> <i class="menu-icon fa fa-list"></i>Manage Event</a>
+                  </li>
+                </div>
+
+
+
+                <!--------------- Member------------------------------------ -->
+                <div id="MEMBER">
+                  <h3 class="menu-title">Member Management</h3>
+                  <li class="dropdown">
+                      <a href="/admin/member"> <i class="menu-icon fa fa-user"></i>Create Member</a>
+                    
+                      <a href="/admin/get-member-list"> <i class="menu-icon fa fa-list"></i>Manage Member</a>
+                  </li>
+                </div>
+            
+
+                <!------------------ Resource--------------------------------- -->
+                <div id="resource">
+                <h3 class="menu-title">Resource Management</h3>
+                <li class="dropdown">
+                    <a href="/admin/resource"> <i class="menu-icon fa fa-user"></i>Create Resource</a>
+                    <a href="/admin/manage-resource-list"> <i class="menu-icon fa fa-list"></i>Manage Resource</a>
+                </li>
+
+
+
+
+                <!----------------- Payment------------------------------- -->
+              </div>
+                <div id="payment">
+                <h3 class="menu-title">Payments Management</h3>
+                <li class="dropdown">
+                    <a href="/admin/create-payment"> <i class="menu-icon fa fa-user"></i>Payment Method</a>
+                </li>  
+                </div>
+
+                 <!--------------Content-------------------------------  -->
+
+                <div id="content">
+                <h3 class="menu-title">Content Management</h3>
+                <li class="dropdown">
+                    <a href="/admin/create-contact"> <i class="menu-icon fa fa-user"></i>Create Content</a>
+                    <a href="/admin/contact-list"> <i class="menu-icon fa fa-list"></i>Content List</a>
+                </li>
+
+               
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </nav>
+</aside>
+<script>
+  var permissionRole = localStorage.getItem('role');
+  console.log("role", permissionRole);
+
+  let permissionModule = localStorage.getItem("permission")
+  const storedDataArray = JSON.parse(permissionModule);
+  
+  if (storedDataArray.length > 0) {
+    const modulesMap = {};
+    
+    storedDataArray.forEach(module => {
+      const mainModule = module.mainModule;
+      const subModules = module.subModules;
+      
+      if (!modulesMap[mainModule]) {
+        modulesMap[mainModule] = [];
+      }
+      
+      modulesMap[mainModule] = modulesMap[mainModule].concat(subModules);
+    });
+    console.log("++++++++++++++++++++++++++++++++",storedDataArray);
+
+    function setDisplay(moduleId, display) {
+      console.log("eeeeeeeeeeeeeee");
+      let element = document.getElementById(moduleId);
+      if (element) {
+        element.style.display = display;
+      }
+    }
+    if (permissionRole === "MANAGER") {
+      document.getElementById("USER").style.display = "none"
+      document.getElementById("NEWS").style.display = "none"
+      document.getElementById("BLOG").style.display = "none"
+      document.getElementById("EVENT").style.display = "none"
+      document.getElementById("MEMBER").style.display = "none"
+
+    }
+    if (permissionRole == "EDITOR") {
+      document.getElementById("USER").style.display = "none";
+      document.getElementById("NEWS").style.display = "none";
+      document.getElementById("BLOG").style.display = "none";
+      document.getElementById("EVENT").style.display = "none";
+      document.getElementById("MEMBER").style.display = "none";
+
+    }
+
+    if(permissionRole == "ADMIN"){
+      document.getElementById("USER").style.display = "none";
+      document.getElementById("NEWS").style.display = "none";
+      document.getElementById("BLOG").style.display = "none";
+      document.getElementById("EVENT").style.display = "none";
+      document.getElementById("MEMBER").style.display = "none";
+      // document.getElementById("CREATE2").style.display = "none";
+
+
+    }
+
+    for (const mainModule in modulesMap) {
+      let displayModule = "none";
+
+
+      if ((permissionRole === "MANAGER" || permissionRole === "EDITOR" || permissionRole === "ADMIN") && modulesMap[mainModule].length > 0) {
+        displayModule = "block";
+      }
+
+      setDisplay(mainModule, displayModule);
+    }
+  }
+  if (permissionRole === "EDITOR") {
+
+    document.getElementById("CREATE").style.display = "none";
+    document.getElementById("CREATE1").style.display = "none";
+    document.getElementById("CREATE2").style.display = "none";
+    document.getElementById("CREATE3").style.display = "none";
+    document.getElementById("CREATE4").style.display = "none";
+  }
+
+  document.getElementById("payment").style.display = "none" 
+  document.getElementById("resource").style.display = "none"
+  document.getElementById("content").style.display = "none"
+
+  if (permissionRole === "SUPER_ADMIN") {
+    document.getElementById("payment").style.display = "block"
+    document.getElementById("resource").style.display = "block"
+    document.getElementById("content").style.display = "block"
+  }
+
+   </script>

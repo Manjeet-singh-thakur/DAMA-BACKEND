@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./include/header'); %>
+
+
+
+    <body>
+ 
+   
+                    <!-- partial:../../partials/_settings-panel.html -->
+              
+                    <!-- partial -->
+                    <!-- partial:partials/_sidebar.html -->
+                    <%- include('./include/sidebar'); %>
+                        <!-- partial -->
+                        <div class="content-wrapper" style="min-height: 795.562px">
+                            <!-- Content Header (Page header) -->
+        
+                            <!-- Main content -->
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-top:75px ;">
+                                            <div class="card card-secondary">
+                                                <div class="card-header">
+                                                    <!-- <h3 class="card-title" style="color: white;">Add Resource</h3> -->
+                                                    <h3 class="card-title" style="color: white; font-weight: 800;">
+                                                        Add Resource
+                                                    </h3>
+                                                    
+
+                                                </div>
+                                                <form role="form" id="addBlog" method="POST">
+                                                    <!-- <input type="hidden" id="hidden" name="desc" value="" /> -->
+                                                    <div class="card-body">
+                                                        <div class="form-group ">
+
+                                                            <div class="row">
+                                                                <div class="linement"
+                                                                    style="width:50%">
+                                                                    <div class="form-group ">
+                                                                        <div class="col-sm-6 add-width">
+                                                                            <label style="font-weight: bold;">Title</label>
+                                                                            <input type="text" id="title" name="title"
+                                                                                class="form-control"
+                                                                                placeholder="Resource Title"
+                                                                                style="border: 2px solid #ced4da" />
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="set" style="width:50%">
+                                                                    <div class="form-group ">
+                                                                        <div class="col-sm-6 add-width">
+                                                                            <label style="font-weight: bold;">Banner Image
+                                                                                <small class="text-danger"> Only png,jpg,
+                                                                                        and jpeg </small></label>
+                                                                            <div class="custom-file">
+                                                                                <div class="">
+                                                                                    <input type="file" name="image"
+                                                                                        class="input-file" id="r_image"
+                                                                                        required="" multiple
+                                                                                        style="border: 2px solid #ced4da" />
+                                                                                    <div class="input-group col-xs-12">
+                                                                                        <span
+                                                                                            class="input-group-addon"><i
+                                                                                                class="fa fa-video-camera"></i></span>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            disabled
+                                                                                            placeholder="Upload Image"
+                                                                                            style="border: 2px solid #ced4da" />
+                                                                                        <span class="input-group-btn">
+                                                                                            <button
+                                                                                                class="upload-field btn btn-info"
+                                                                                                type="button">
+                                                                                                <i
+                                                                                                    class="fa fa-search"></i>
+                                                                                                Browse
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p style="display: none" id="img_error_msg"
+                                                                                class="alert alert-danger"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="set" style="width:50%; margin-top: 15px; margin-bottom: 15px; " >
+                                                                    <div class="form-group ">
+                                                                        <div class="col-sm-6 add-width">
+                                                                            <label style="font-weight: bold;">Featured Pdf
+                                                                                <small class="text-danger">**Only pdf
+                                                                                    allow</small></label>
+                                                                            <div class="custom-file">
+                                                                                <div class="">
+                                                                                    <input type="file" name="image"
+                                                                                        class="input-file" id="r_pdf"
+                                                                                        required="" multiple
+                                                                                        style="border: 2px solid #ced4da" />
+                                                                                    <div class="input-group col-xs-12">
+                                                                                        <span
+                                                                                            class="input-group-addon"><i
+                                                                                                class="fa fa-video-camera"></i></span>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            disabled
+                                                                                            placeholder="Upload pdf"
+                                                                                            style="border: 2px solid #ced4da" />
+                                                                                        <span class="input-group-btn">
+                                                                                            <button
+                                                                                                class="upload-field btn btn-info"
+                                                                                                type="button">
+                                                                                                <i
+                                                                                                    class="fa fa-search"></i>
+                                                                                                Browse
+                                                                                            </button>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p style="display: none" id="img_error_msg"
+                                                                                class="alert alert-danger"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="linement"
+                                                                    style="margin-top: 15px ;width:50%; margin-bottom: 15px;">
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-6 add-width" style="margin-top:23px;">
+                                                                            <label style="font-weight: bold;">Status</label>
+                                                                            <select class="testing"
+                                                                                style="border: 2px solid #ced4da; background-color: white;"
+                                                                                name="isPaid" id="isPaid"
+                                                                                onchange="togglePriceField()">
+                                                                                <option value="Free">Free</option>
+                                                                                <option value="Paid">Paid</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="linement" style="margin-top: 0px; width:50%"
+                                                                    id="priceContainer" style="display: none;">
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-6 add-width">
+                                                                            <label>Price</label>
+                                                                            <input type="text" id="e_price" name="price"
+                                                                                class="form-control"
+                                                                                placeholder="Enter Price"
+                                                                                style="border: 2px solid #ced4da" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <button type="submit" class="btn btn-primary">
+                                                                    Submit
+                                                                </button>
+                                                            </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- /.content -->
+                        </div>
+                </div>
+                <!--footer-->
+                <%- include('./include/footer'); %>
+        </div>
+
+
+
+
+
+
+
+
+        
+    </body>
+    <style>
+        .form-group select {
+            width: 100% !important;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 10px !important;
+        }
+
+        body {
+            font-family: Roboto;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .input-file {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        button.upload-field.btn.btn-info {
+            padding-bottom: 5px;
+            margin-left: 4px;
+            background-color:#c2cfd6;
+            border-color: #c2cfd6;
+        }
+
+        .input-group:not(.has-validation)>.form-control:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.form-control:not(:last-child),
+        .input-group:not(.has-validation)>.asColorPicker-input:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.asColorPicker-input:not(:last-child),
+        .dataTables_wrapper .input-group:not(.has-validation)>select:not(:last-child),
+        .dataTables_wrapper .asColorPicker-wrap:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>input:not(:last-child)[type="text"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>input:not(:last-child)[type="text"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>input:not(:last-child)[type="number"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>input:not(:last-child)[type="number"],
+        .select2-container--default .input-group:not(.has-validation)>.select2-selection--single:not(:last-child),
+        .select2-container--default .asColorPicker-wrap:not(.has-validation)>.select2-selection--single:not(:last-child),
+        .select2-container--default .select2-selection--single .input-group:not(.has-validation)>.select2-search__field:not(:last-child),
+        .select2-container--default .select2-selection--single .asColorPicker-wrap:not(.has-validation)>.select2-search__field:not(:last-child),
+        .input-group:not(.has-validation)>.typeahead:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.typeahead:not(:last-child),
+        .input-group:not(.has-validation)>.tt-query:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.tt-query:not(:last-child),
+        .input-group:not(.has-validation)>.tt-hint:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.tt-hint:not(:last-child),
+        .input-group:not(.has-validation)>.custom-select:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.custom-select:not(:last-child),
+        .input-group:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label::after,
+        .asColorPicker-wrap:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label::after {
+            background-color: white;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#addBlog").validate({
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .append(error);
+                },
+
+                errorElement: "span",
+                rules: {
+                    title: {
+                        required: true,
+                        maxlength: 20,
+                    },
+
+                    content: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                    description: {
+                        required: true,
+                        maxlength: 200,
+                    },
+                },
+                submitHandler: function () {
+                    let formData = $("#addBlog").serialize();
+                    console.log(formData, "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+                    $.ajax({
+                        url: "/admin/insert-resource",
+                        headers: {
+                            Authorization: localStorage.getItem("token"),
+                        },
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        method: "POST",
+                        type: "POST",
+
+                        success: function (_res) {
+                            console.log(_res, "ressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+                            let _id = _res.payload.resourceUuid;
+                            console.log(_id, "_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id")
+                            KWACHA_MAIN.uploadResourceImage(_id);
+                            KWACHA_MAIN.uploadResourcePdf(_id);
+                            $("#addBlog").trigger("reset");
+
+                            let successConfig = {
+                                title: "Confirmation",
+                                message: `Operation performed successfully.`,
+                                type: "success",
+                            };
+                            KWACHA_MAIN.sweetAlert(successConfig);
+                        },
+
+                        error: function (e) {
+                            $("#load").hide();
+                            let responseText = JSON.parse(e.responseText);
+                            let errorConfig = {
+                                title: "Error",
+                                message: responseText.message,
+                                type: "error",
+                            };
+                            KWACHA_MAIN.sweetAlert(errorConfig);
+                        },
+                    });
+                },
+            });
+        });
+        KWACHA_MAIN.uploadResourceImage = function (_id) {
+            if (document.getElementById("r_image")) {
+                if (typeof document.getElementById("r_image").files !== "undefined" && document.getElementById("r_image").files.length > 0) {
+                    var formData = new FormData();
+                    var files = document.getElementById("r_image").files;
+                    console.log("Files received from frontend:", files);
+                    for (var i = 0; i <= files.length; i++) {
+                        formData.append("multiple", files[i]);
+                    }
+                    formData.append("resourceUuid", _id);
+                    $.ajax({
+                        url: "/admin/upload-resource-image",
+                        data: formData,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: "POST",
+                        type: "POST",
+                        success: function () {
+                            $("#addBlog").trigger("reset");
+                        },
+                        error: function (error) {
+                            let message = error.responseJSON ? error.responseJSON.message : "Something Went wrong!";
+                            KWACHA_MAIN.sweetAlert({ title: "Error", message: message, type: "error" });
+                        },
+                    });
+                }
+            }
+        };
+        KWACHA_MAIN.uploadResourcePdf = function (_id) {
+            if (document.getElementById("r_pdf")) {
+                if (typeof document.getElementById("r_pdf").files !== "undefined" && document.getElementById("r_pdf").files.length > 0) {
+                    var formData = new FormData();
+                    var files = document.getElementById("r_pdf").files;
+                    console.log("Files received from frontend:", files);
+                    for (var i = 0; i <= files.length; i++) {
+                        formData.append("multiple", files[i]);
+                    }
+                    formData.append("resourceUuid", _id);
+                    $.ajax({
+                        url: "/admin/upload-resource-pdf",
+                        data: formData,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: "POST",
+                        type: "POST",
+                        success: function () {
+                            $("#addBlog").trigger("reset");
+                        },
+                        error: function (error) {
+                            let message = error.responseJSON ? error.responseJSON.message : "Something Went wrong!";
+                            KWACHA_MAIN.sweetAlert({ title: "Error", message: message, type: "error" });
+                        },
+                    });
+                }
+            }
+        };
+
+        $(document).on("click", ".upload-field", function () {
+            var file = $(this).parent().parent().parent().find(".input-file");
+            file.trigger("click");
+        });
+        $(document).on("change", ".input-file", function () {
+            $(this)
+                .parent()
+                .find(".form-control")
+                .val(
+                    $(this)
+                        .val()
+                        .replace(/C:\\fakepath\\/i, "")
+                );
+        });
+    </script>
+
+    <script>
+        var editor = CKEDITOR.replace("description");
+        editor.on("change", function (evt) {
+            $("#hidden").val(evt.editor.getData());
+        });
+    </script>
+
+    <script>
+        function togglePriceField() {
+            var statusSelect = document.getElementById('isPaid');
+            var priceContainer = document.getElementById('priceContainer');
+            if (statusSelect.value === 'Paid') {
+                priceContainer.style.display = 'block';
+            } else {
+                priceContainer.style.display = 'none';
+            }
+        }
+
+        // Call the function on page load to set the initial state
+        window.onload = function () {
+            togglePriceField();
+        }
+    </script>
+
+</html>

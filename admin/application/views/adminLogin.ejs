@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Community</title>
+    <!-- plugins:css -->
+    <link rel="icon" type="image/x-icon" href="theme/images/blacklogo.svg" />
+    <link rel="stylesheet" href="theme/vendors/feather/feather.css" />
+    <link
+      rel="stylesheet"
+      href="theme/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="theme/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="theme/css/min/sweetalert.min.css"
+    />
+    <!-- Font Awesome for eye icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="theme/css/vertical-layout-light/style.css" />
+    <!-- endinject -->
+    <style>
+      .login-form {
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+      }
+      .login-form {
+        background: #ffffff;
+        padding: 30px 30px 20px;
+        border-radius: 10px;
+      }
+
+      .sufee-login.d-flex.align-content-center.flex-wrap {
+        height: 100vh;
+      }
+
+      .logo-heading {
+        text-align: center;
+      }
+
+      .login-logo {
+        text-align: center;
+      }
+
+      .align-content {
+        width: 50%;
+      }
+      .login-content {
+        width: 50%;
+        margin: 0 auto;
+      }
+      .toggle-password {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .input-group {
+        position: relative;
+      }
+      .password-control:focus + i {
+        z-index: 9 !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('./include/header'); %>
+    <div
+      style="background-color: #282f3a"
+      class="sufee-login d-flex align-content-center flex-wrap"
+    >
+      <div class="container">
+        <div class="login-content">
+          <div class="login-form">
+            <h3 class="logo-heading" style="font-weight: bold">
+              Welcome to Dama Dashboard
+            </h3>
+            <div class="login-logo">
+              <img
+                src="theme/images/logo22.png"
+                height="80"
+                width="200"
+                alt="dama logo"
+              />
+            </div>
+            <form id="adminLoginForm" class="adminLogin" role="form">
+              <div class="form-group">
+                <label
+                  style="font-weight: bolder; color: black; font-size: medium"
+                  >Email address</label
+                >
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  style="font-weight: bolder; color: black; font-size: medium">Password</label
+                >
+                <div class="input-group">
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    class="form-control password-control"
+                    placeholder="Password"
+                    required
+                  />
+                  <i class="fas fa-eye toggle-password"></i>
+                </div>
+                <span id="message"></span>
+              </div>
+              <div class="checkbox">
+                <label class="pull-right" style="margin-bottom: 20px">
+                  <a href="/admin/forgot-password">Forgot Password?</a>
+                </label>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="btn btn-success btn-flat m-b-30 m-t-30"
+                  style="font-weight: bolder"
+                >
+                  Sign in
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="theme/vendors/js/vendor.bundle.base.js"></script>
+    <script src="theme/js/off-canvas.js"></script>
+    <script src="theme/js/hoverable-collapse.js"></script>
+    <script src="theme/js/template.js"></script>
+    <script src="theme/js/settings.js"></script>
+    <script src="theme/js/todolist.js"></script>
+    <script src="theme/js/jquery.min.js"></script>
+    <script src="theme/js/sweetalert-min.js" type="text/javascript"></script>
+    <script src="theme/js/main.js"></script>
+    <script src="theme/js/form-validation.min.js"></script>
+  </body>
+</html>
+<script>
+  $(function () {
+    $("#adminLoginForm").validate({
+      errorPlacement: function (error, element) {
+        $(element)
+          .closest("form")
+          .find("label[for='" + element.attr("id") + "']")
+          .append(error);
+      },
+      errorElement: "span",
+      rules: {
+        email: {
+          required: true,
+          email: true,
+          maxlength: 70,
+        },
+        password: {
+          required: true,
+          minlength: 8,
+          maxlength: 100,
+        },
+      },
+      submitHandler: function () {
+        let formData = $("#adminLoginForm").serialize();
+        $.ajax({
+          url: "/admin/login",
+          data: formData,
+          cache: false,
+          processData: false,
+          method: "POST",
+          type: "POST",
+          success: function (_res) {
+            console.log("payload", _res.payload);
+            localStorage.setItem("token", _res.payload.token);
+            localStorage.setItem("adminName", _res.payload.au_name);
+            localStorage.setItem("adminEmail", _res.payload.au_email);
+            localStorage.setItem("role", _res.payload.role);
+            localStorage.setItem(
+              "permission",
+              JSON.stringify(_res.payload.module)
+            );
+            if (_res.payload.au_profileImage && _res.payload.url) {
+              localStorage.setItem(
+                "adminImage",
+                "https://allora-bucket.s3.eu-north-1.amazonaws.com/images/users-profile-images/" +
+                  _res.payload.au_profileImage
+              );
+            }
+            $("#adminLogin").trigger("reset");
+            window.location.href = "dashboard";
+          },
+          error: function (e) {
+            let responseText = JSON.parse(e.responseText);
+            let errorConfig = {
+              title: "Error",
+              message: responseText.message,
+              type: "error",
+            };
+            KWACHA_MAIN.sweetAlert(errorConfig);
+          },
+        });
+      },
+    });
+
+    // Toggle password visibility
+    $(".toggle-password").click(function () {
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      let input = $("#password");
+      if (input.attr("type") === "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+  });
+</script>

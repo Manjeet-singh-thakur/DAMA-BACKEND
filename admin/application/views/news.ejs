@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./include/header'); %>
+
+  <body>
+    <!-- partial:../../partials/_navbar.html -->
+    <%- include('./include/sidebar'); %>
+      <div id="right-panel" class="right-panel">
+        <%- include('./include/topbar'); %>
+          <div class="content-side">
+            <div class="main-panel">
+              <div class="content">
+            <div class="card mt-3">
+              <form role="form" id="addNews" method="POST">
+                <!-- <div class="card-header text-white"><strong>Add News</strong></div> -->
+                <div class="card-header text-white" style="font-weight: 800;">
+                  <strong>Add News</strong>
+              </div>
+              
+                <div class="card-body card-block">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="linement" style="margin-top: -10px ;width:50%">
+                        <div class="form-group ">
+                          <div class="col-sm-12 add-width">
+                            <label style="font-weight: bold;">Title</label>
+                            <input type="text" id="title" name="title" class="form-control" placeholder="News Title"
+                              style="border: 2px solid #ced4da;">
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="linement" style="margin-top: -10px ;width:50%">
+                        <div class="form-group ">
+                          <div class="col-sm-12 add-width">
+                            <label style="font-weight: bold;">Subtitle</label>
+                            <input type="text" id="subTitle" name="subTitle" class="form-control"
+                              placeholder="News Subtitle" style="border: 2px solid #ced4da">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <div class="row">
+                      <div class="linement" style="margin-top: 0px ;width: 50%;">
+                        <div class="form-group ">
+                          <div class="col-sm-12 add-width ">
+                            <label style="font-weight: bold;">Content</label>
+                            <input type="text" id="content" name="content" class="form-control"
+                              placeholder="News Content" style="border: 2px solid #ced4da" />
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="linement" style="margin-top: 0px ;width:50%">
+                        <div class="form-group ">
+                          <div class="col-sm-12 add-width">
+                            <label style="font-weight: bold;">Featured Image
+                              <small class="text-danger">Only png, jpg, and jpeg image
+                                allow</small></label>
+                            <div class="custom-file">
+                              <div class="">
+                                <input type="file" name="image" class="input-file form-control" id="n_image"
+                                  style="border: 2px solid #ced4da" multiple />
+                              </div>
+                            </div>
+                            <p style="display: none" id="img_error_msg" class="alert alert-danger">
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                  </div>
+                  <div class="form-group mt-3">
+                    <div class="linement" style="margin-top: 0px ;width:100%">
+                      <label for="Category" style="font-weight: bold;">Category</label>
+                      <div class="form-group ">
+                        <div class="row">
+                          <div class="col-sm-6 add-width">
+                            <select class="form-control"
+                              style="background-color: white; width: 100%; border: 2px solid #ced4da;" id="category"
+                              name="category">
+                              <option value="Business">Business</option>
+                              <option value="Entertainment">Entertainment</option>
+                              <option value="Broadcast journalism">Broadcast Journalism</option>
+                              <option value="Sports">Sports</option>
+                              <option value="International">International</option>
+                              <option value="Lifestyle expos">Lifestyle Expos</option>
+                              <option value="Features">Features</option>
+                              <option value="Journalistic beats">Journalistic Beats</option>
+                            </select>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label style="font-weight: bold;">Description</label>
+                        <textarea id="description" name="desc" class="form-control" aria-hidden="true"
+                          required=""></textarea>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+      <!-- main-panel ends -->
+      <!-- page-body-wrapper ends -->
+      </div>
+      <%- include('./include/footer'); %>
+  </body>
+  <style>
+    .form-group input.form-control.error {
+      border: 1px solid #f00 !important;
+    }
+
+    .form-group select {
+      width: 100% !important;
+      padding: 8px;
+      border: 1px solid #ced4da;
+      border-radius: 10px !important;
+    }
+
+    body {
+      font-family: Roboto;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    button.upload-field.btn.btn-info {
+      padding-bottom: 5px;
+      margin-left: 4px;
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+  <script>
+    $(function () {
+      $("#addNews").validate({
+        errorPlacement: function (error, element) {
+          $(element)
+            .closest("form")
+            .find("label[for='" + element.attr("id") + "']")
+            .append(error);
+        },
+
+        errorElement: "span",
+        rules: {
+          title: {
+            required: true,
+            maxlength: 1000,
+          },
+
+          content: {
+            required: true,
+            maxlength: 5000,
+          },
+          description: {
+            required: true,
+            maxlength: 5000,
+          },
+
+
+          subTitle: {
+            required: true,
+            maxlength: 1000,
+          },
+
+        },
+        submitHandler: function () {
+          for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+          }
+          let formData = $("#addNews").serialize();
+          // let uidd = formData.split('&');
+          // let uidds = uidd[0].split('=');
+          // let uId = newsUuid[1];
+          $.ajax({
+            url: "/admin/insert-news",
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+            data: formData,
+            cache: false,
+            processData: false,
+            method: "POST",
+            type: "POST",
+
+            success: function (_res) {
+              let _id = _res.payload.newsUuid;
+              KWACHA_MAIN.uploadMultiple(_id);
+              $("#addNews").trigger("reset");
+
+              let successConfig = {
+                title: "Confirmation",
+                message: `Operation performed successfully.`,
+                type: "success",
+              };
+              KWACHA_MAIN.sweetAlert(successConfig);
+            },
+
+            error: function (e) {
+              $("#load").hide();
+              let responseText = JSON.parse(e.responseText);
+              let errorConfig = {
+                title: "Error",
+                message: responseText.message,
+                type: "error",
+              };
+              KWACHA_MAIN.sweetAlert(errorConfig);
+            },
+          });
+        },
+      });
+    });
+    KWACHA_MAIN.uploadMultiple = function (_id) {
+      if (document.getElementById("n_image")) {
+        if (typeof document.getElementById("n_image").files !== "undefined" && document.getElementById("n_image").files.length > 0) {
+          var formData = new FormData();
+          var files = document.getElementById("n_image").files;
+          console.log("Files received from frontend:", files);
+          for (var i = 0; i <= files.length; i++) {
+            formData.append("multiple", files[i]);
+          }
+          formData.append("newsUuid", _id);
+          $.ajax({
+            url: "/admin/upload-image",
+            data: formData,
+            dataType: "json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            type: "POST",
+            success: function () {
+              $("#addNews").trigger("reset");
+            },
+            error: function (error) {
+              let message = error.responseJSON ? error.responseJSON.message : "Something Went wrong!";
+              KWACHA_MAIN.sweetAlert({ title: "Error", message: message, type: "error" });
+            },
+          });
+        }
+      }
+    };
+
+
+
+
+    $(document).on("click", ".upload-field", function () {
+      var file = $(this).parent().parent().parent().find(".input-file");
+      file.trigger("click");
+    });
+    $(document).on("change", ".input-file", function () {
+      $(this)
+        .parent()
+        .find(".form-control")
+        .val(
+          $(this)
+            .val()
+            .replace(/C:\\fakepath\\/i, "")
+        );
+    });
+  </script>
+  <script>
+    CKEDITOR.replace("desc");
+    var editor = CKEDITOR.replace("description");
+    editor.on("change", function (evt) {
+      $("#hidden").val(evt.editor.getData());
+    });
+  </script>
+
+</html>

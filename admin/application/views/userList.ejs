@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./include/header'); %>
+
+<head>
+
+  <link rel="stylesheet" type="text/css" href="/admin//theme/css/style.css">
+  <!-- <script type="text/javascript" src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script> -->
+</head>
+  <style>
+    .search button {
+      font-size: 14px;
+      padding: 14px 24px !important;
+      background: #0056b3 !important;
+      color: #fff;
+      border-radius: 0;
+      border: 0;
+      margin-bottom: 0;
+    }
+
+    .search {
+      width: auto;
+      display: flex;
+    }
+    
+  </style>
+
+  <body>
+     <!-- partial:../../partials/_navbar.html -->
+     <%- include('./include/sidebar'); %>
+    <div class="right-panel" id="right-panel">
+      <!-- partial:../../partials/_navbar.html -->
+      <%- include('./include/topbar'); %>
+            <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" /> -->
+            <!-- partial -->
+            <div class="content-side" id="content-side">
+              <!-- partial:../../partials/_settings-panel.html -->
+              
+              
+              <!-- partial -->
+              <!-- partial:../../partials/_sidebar.html -->
+              <!-- partial -->
+             
+               <div class="main-panel">
+                <div class="content-wrapper content mt-3">
+                  <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                      <div class="animated fadeIn">
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header" id="cardheader">
+        <!-- <strong style="color: #83858f" class="card-title">Data Table</strong>
+          -->
+     <!-- <div class="UsersDetails text-white p-3"><strong>News Details</strong></div> -->
+     <div class="UsersDetails text-white p-3">
+      <strong style="font-weight: 800;">User Details</strong>
+  </div>
+      </div>
+
+      <div class="position-sticky" id="datatableHeader">
+        <!-- <p class="card-header text-white UsersDetails pl-0" id="cardheader">News Details</p> -->
+
+        <div class="row">
+          <div class="col-md-6 p-3">
+            <div style="width: 80px;" class="d-flex align-items-baseline gap-2 ps-3">
+              <span>Show</span>
+              <select class="form-control h-100 selectbox"  id="pagination" class="back">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="1000">1000</option>
+              </select>
+              <span>Entries</span>
+            </div>
+          </div>
+          <div class="col-md-6 p-3">
+            <div class="search">
+              <span class="ms-auto d-flex align-items-center align-self-center me-2">Search: </span>
+              <input id="search" class="form-control w-50 me-2" type="search">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-body dynamic-listing">
+        <!-- <div class="table-responsive dynamic-listing dinamic-table" id="excelfile"> -->
+          <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th style="font-weight: 550;">Images</th>
+                <th style="font-weight: 550;">User Name</th>
+                <th style="font-weight: 550;">Last Name</th>
+                <th style="font-weight: 550;">User Email</th>
+                <th style="font-weight: 550;">Created At <i class="fa fa-fw fa-sort"></i></th>
+                <th style="font-weight: 550;" colspan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+
+    </div>
+  </div>
+</div>
+                      </div>
+                      <div class="loader" id="dataLoader"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                <!-- <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                  <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                  </span>
+                  <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="#">
+                    </a></span>
+                </div>
+              </footer> -->
+                <!-- partial -->
+              </div>
+              <!-- main-panel ends -->
+              <%- include('./include/footer'); %>
+            </div>
+       
+        <!-- page-body-wrapper ends -->
+    </div>
+    
+      <!-- endinject -->
+      <!-- Custom js for this page-->
+      <!-- End custom js for this page-->
+  </body>
+
+</html>
+<!-- start Excel file js 20-09-2022 -->
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<!-- End  Excel file js 20-09-2022 -->
+<script>
+  var KWACHA_ADMIN = {};
+
+  KWACHA_ADMIN.init = function (pageNum, sortBy, sortOrder, searchValue, perPage) {
+    page_num = pageNum ? pageNum : 0;
+    var KWACHA_ADMIN_PAGE_CONFIG = {
+      url: "user-list-ajax",
+      pageNumber: pageNum,
+      sortBy: sortBy,
+      sortOrder: sortOrder,
+      keywords: searchValue,
+      perPage: perPage,
+    };
+    KWACHA_MAIN.loadPageData(pageNum, KWACHA_ADMIN_PAGE_CONFIG);
+  };
+
+  KWACHA_ADMIN.sortBy = function (sortBy, sortOrder, perPage) {
+    $("#loading").show();
+    if (sortOrder == 'ASC') {
+      sortOrder = 'DESC';
+    } else {
+      sortOrder = 'ASC';
+    }
+    var KWACHA_ADMIN_PAGE_CONFIG = {
+      url: "user-list-ajax",
+      pageNumber: 0,
+      sortBy: sortBy,
+      sortOrder: sortOrder,
+      perPage: perPage,
+    };
+    KWACHA_MAIN.loadPageData(0, KWACHA_ADMIN_PAGE_CONFIG);
+  }
+  KWACHA_ADMIN.init(0, 'uc_created', 'ASC');
+
+  $("#search").on('keyup', function () {
+    clearTimeout(this.delay);
+    this.delay = setTimeout(function () {
+      $(this).trigger('search');
+    }.bind(this), 1000); // Adjust the delay time as needed
+  }).on('search', function () {
+    let searchValue = $("#search").val().trim(); // Trim any whitespace
+    if (searchValue) {
+      $("#loading").show();
+      KWACHA_ADMIN.init(0, "uc_created", 'ASC', searchValue);
+    } else {
+      $("#loading").show();
+      KWACHA_ADMIN.init(0, "uc_created", 'ASC', '');
+    }
+  });
+
+
+
+
+  $("#pagination").change(function () {
+    let perPage = $('#pagination').val();
+    $("#loading").show();
+    var KWACHA_ADMIN_PAGE_CONFIG = {
+      url: "user-list-ajax",
+      pageNumber: 0,
+      sortBy: 'uc_created',
+      sortOrder: 'ASC',
+      perPage: perPage,
+    };
+    KWACHA_MAIN.loadPageData(0, KWACHA_ADMIN_PAGE_CONFIG);
+  });
+
+
+
+</script>

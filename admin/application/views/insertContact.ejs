@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./include/header'); %>
+
+  <body>
+    <!-- partial:../../partials/_navbar.html -->
+    <%- include('./include/sidebar'); %>
+      <div id="right-panel" class="right-panel">
+        <%- include('./include/topbar'); %>
+          <div class="content-side">
+            <div class="main-panel">
+              <div class="content">
+            <div class="card mt-3">
+              <form role="form" id="insertUser" method="POST">
+                <!-- <div class="card-header text-white"><strong>Create New Content</strong></div> -->
+                <div class="card-header text-white" style="font-weight:800;"><strong>Create New Content</strong></div>
+
+
+                <div class="card-body">
+                    <form class="forms-sample" id="insertUser" method="post"
+                        role="form">
+                        <div class="form-file w-100">
+                            <div class="form-group">
+                                <label for="contentType" style="font-weight: bold;">Content Type</label>
+                                <select class="form-control" name="contentType"
+                                    id="contentType" placeholder="User Name">
+                                    <option value="TERMS AND CONDITIONS">TERMS AND
+                                        CONDITIONS</option>
+                                    <option value="PRIVACY POLICY">PRIVACY POLICY
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="userName" style="font-weight: bold;">Content</label>
+                                <textarea id="userMessage" name="userMessage" rows="4"
+                                    cols="50" class="w-100"></textarea>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit"
+                                    class="btn rounded-0 btn-primary mr-2 submit-data">
+                                    Submit 
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- -------------------------- -->
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+      <!-- main-panel ends -->
+      <!-- page-body-wrapper ends -->
+      </div>
+      <%- include('./include/footer'); %>
+  </body>
+  <style>
+    .form-group input.form-control.error {
+      border: 1px solid #f00 !important;
+    }
+
+    .form-group select {
+      width: 100% !important;
+      padding: 8px;
+      border: 1px solid #ced4da;
+      border-radius: 10px !important;
+    }
+
+    body {
+      font-family: Roboto;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    button.upload-field.btn.btn-info {
+      padding-bottom: 5px;
+      margin-left: 4px;
+      background-color:#c2cfd6;
+      border-color: #c2cfd6;
+    }
+  </style>
+ <script>
+    $(function () {
+        $("#insertUser").validate({
+            errorPlacement: function (error, element) {
+                $(element)
+                    .closest("form")
+                    .find("label[for='" + element.attr("id") + "']")
+                    .append(error);
+            },
+
+            errorElement: "span",
+            rules: {
+                userName: {
+                    required: true,
+                    maxlength: 20,
+                },
+
+                userEmail: {
+                    required: true,
+                    maxlength: 50,
+                },
+
+                userPassword: {
+                    required: true,
+                    maxlength: 20,
+                },
+
+                userGender: {
+                    required: true,
+                    maxlength: 20,
+                },
+            },
+            submitHandler: function () {
+                let formData = $("#insertUser").serialize();
+
+                $.ajax({
+                    url: "/admin/insert-contact",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    method: "POST",
+                    type: "POST",
+                    success: function (_res) {
+                        $("#insertUser").trigger("reset");
+                        let successConfig = {
+                            title: "Confirmation",
+                            message: `Operation performed successfully.`,
+                            type: "success",
+                        };
+                        KWACHA_MAIN.sweetAlert(successConfig);
+                    },
+                    error: function (e) {
+                        let responseText = JSON.parse(e.responseText);
+                        let errorConfig = {
+                            title: "Error",
+                            message: responseText.message,
+                            type: "error",
+                        };
+                        KWACHA_MAIN.sweetAlert(errorConfig);
+                    },
+                });
+            },
+        });
+    });
+</script>

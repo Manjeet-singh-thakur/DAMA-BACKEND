@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./include/header'); %>
+
+    <!-- <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+        <link rel="stylesheet" href="https://news.wrteam.me/public/plugins/ekko-lightbox/ekko-lightbox.css" />
+        <link rel="stylesheet" href="https://news.wrteam.me/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css" rel="stylesheet" />
+        <link
+            href="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css"
+            rel="stylesheet" />
+
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.1/extensions/fixed-columns/bootstrap-table-fixed-columns.css"
+            integrity="sha512-kvkkrHuKAXVdP5Ank5mgDR9hsNnuA5eVcw+a8K5VgbKjP1UQewIrhBE+826LiXjWMlgZJ0aPZl0Pc+XrOQNa4A=="
+            crossorigin="anonymous" />
+        <link rel="stylesheet" href="theme/css/testing.css" />
+
+        <script type="text/javascript" src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" id="mce-u0"
+            href="https://news.wrteam.me/public/plugins/tinymce/skins/ui/oxide/skin.min.css" />
+    </head> -->
+
+    <body>
+
+        <!-- partial:../../partials/_navbar.html -->
+        <%- include('./include/sidebar'); %>
+            <div id="right-panel" class="right-panel">
+                <%- include('./include/topbar'); %>
+                    <div class="content-side">
+                        <div class="main-panel">
+                            <div class="content">
+                        <div class="card mt-3">
+                            <form role="form" id="addEvent" method="POST">
+                                <!-- <div class="card-header text-white"><strong>Add Event</strong></div> -->
+                                <div class="card-header text-white">
+                                    <strong style="font-weight: bold;">Add Event</strong>
+                                </div>
+                                
+
+                                <!-- <div
+                    class="d-flex align-items-center justify-content-between mb-5">
+                    <h3 class="card-title">Add Event</h3>
+                    <button type="submit" class="btn btn-primary border-0 rounded-0">
+                        Submit
+                    </button>
+                </div> -->
+                                <div class="card-body card-block">
+
+                                    <!-- Titile and Subtitle section -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Title</label>
+                                                        <input type="text" id="title" name="title" class="form-control"
+                                                            placeholder="News Title" style="border: 2px solid #ced4da;">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Subtitle</label>
+                                                        <input type="text" id="subTitle" name="subTitle"
+                                                            class="form-control" placeholder="News Subtitle"
+                                                            style="border: 2px solid #ced4da">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Content and Start Date Section -->
+                                    <div class="form-group mt-3">
+                                        <div class="row">
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Content</label>
+                                                        <input type="text" id="content" name="content"
+                                                            class="form-control" placeholder="Event content"
+                                                            style="border: 2px solid #ced4da" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Start Date</label>
+                                                        <input type="date" id="startDate" name="startDate"
+                                                            class="form-control" style="border: 2px solid #ced4da" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End date and Venue Section -->
+                                    <div class="form-group mt-3">
+                                        <div class="row">
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">End Date</label>
+                                                        <input type="date" id="endDate" name="endDate"
+                                                            class="form-control" style="border: 2px solid #ced4da" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Venue</label>
+                                                        <input type="text" id="venue" name="venue" class="form-control"
+                                                            placeholder="Event Venue"
+                                                            style="border: 2px solid #ced4da" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Latitude and Longitude Section -->
+                                    <div class="form-group mt-3">
+                                        <div class="row">
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Latitude</label>
+                                                        <input type="number" id="lat" name="lat" class="form-control"
+                                                            placeholder="Latitude" style="border: 2px solid #ced4da" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Longitude</label>
+                                                        <input type="number" id="long" name="long" class="form-control"
+                                                            placeholder="Longitude" style="border: 2px solid #ced4da" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Feature image and status Section -->
+                                    <div class="form-group mt-3">
+                                        <div class="row">
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Featured Image
+                                                            <small class="text-danger">Only png, jpg, and jpeg image
+                                                                allow</small></label>
+                                                        <div class="custom-file">
+                                                            <div class="">
+                                                                <input type="file" name="image"
+                                                                    class="input-file form-control" id="e_image"
+                                                                    style="border: 2px solid #ced4da" multiple />
+                                                            </div>
+                                                        </div>
+                                                        <p style="display: none" id="img_error_msg"
+                                                            class="alert alert-danger">
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="linement" style="margin-top: -10px ;width:50%">
+                                                <div class="form-group ">
+                                                    <div class="col-sm-12 add-width">
+                                                        <label style="font-weight: bold;">Status</label>
+                                                        <select onchange="getValue()" style="background-color: white;"
+                                                            name="isPaid" id="isPaid" class="form-control">
+                                                            <option value="FREE">Free
+                                                            </option>
+                                                            <option value="PAID">Paid
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Section -->
+                                    <div class="form-group mt-3">
+                                        <div id="show-hide" class="linement">
+                                            <div>
+                                                <div class="col-sm-12 add-width">
+                                                    <label style="font-weight: bold;">Price</label>
+                                                    <input type="string" class="w-50 form-control mb-3" id="e_price"
+                                                        name="price" class="form-control" placeholder="Enter Price"
+                                                        style="border: 2px solid #ced4da" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- description section-->
+                                    <div class="form-group mt-3">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label style="font-weight: bold;">Description</label>
+                                                <textarea id="description" name="desc" class="form-control"
+                                                    aria-hidden="true" required=""></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- submit button -->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+            <!-- main-panel ends -->
+            <!-- page-body-wrapper ends -->
+            </div>
+            <%- include('./include/footer'); %>
+    </body>
+    <style>
+        .form-group input.form-control.error {
+            border: 1px solid #f00 !important;
+        }
+
+        .form-group select {
+            width: 100% !important;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 10px !important;
+        }
+
+        body {
+            font-family: Roboto;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* .input-file {
+            visibility: hidden;
+            position: absolute;
+        } */
+
+        /* button.upload-field.btn.btn-info {
+            padding-bottom: 5px;
+            margin-left: 4px;
+            background-color: #0056b3;
+            border-color: #0056b3;
+        } */
+
+        .input-group:not(.has-validation)>.form-control:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.form-control:not(:last-child),
+        .input-group:not(.has-validation)>.asColorPicker-input:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.asColorPicker-input:not(:last-child),
+        .dataTables_wrapper .input-group:not(.has-validation)>select:not(:last-child),
+        .dataTables_wrapper .asColorPicker-wrap:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>input:not(:last-child)[type="text"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>input:not(:last-child)[type="text"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>select:not(:last-child),
+        .jsgrid .jsgrid-table .jsgrid-filter-row .input-group:not(.has-validation)>input:not(:last-child)[type="number"],
+        .jsgrid .jsgrid-table .jsgrid-filter-row .asColorPicker-wrap:not(.has-validation)>input:not(:last-child)[type="number"],
+        .select2-container--default .input-group:not(.has-validation)>.select2-selection--single:not(:last-child),
+        .select2-container--default .asColorPicker-wrap:not(.has-validation)>.select2-selection--single:not(:last-child),
+        .select2-container--default .select2-selection--single .input-group:not(.has-validation)>.select2-search__field:not(:last-child),
+        .select2-container--default .select2-selection--single .asColorPicker-wrap:not(.has-validation)>.select2-search__field:not(:last-child),
+        .input-group:not(.has-validation)>.typeahead:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.typeahead:not(:last-child),
+        .input-group:not(.has-validation)>.tt-query:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.tt-query:not(:last-child),
+        .input-group:not(.has-validation)>.tt-hint:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.tt-hint:not(:last-child),
+        .input-group:not(.has-validation)>.custom-select:not(:last-child),
+        .asColorPicker-wrap:not(.has-validation)>.custom-select:not(:last-child),
+        .input-group:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label::after,
+        .asColorPicker-wrap:not(.has-validation)>.custom-file:not(:last-child) .custom-file-label::after {
+            background-color: white;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#addEvent").validate({
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .append(error);
+                },
+
+                errorElement: "span",
+                rules: {
+                    title: {
+                        required: true,
+                        maxlength: 100,
+                    },
+
+                    content: {
+                        required: true,
+                        maxlength: 1000,
+                    },
+                    description: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                    startDate: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                    endDate: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+
+                    venue: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                    lat: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                    long: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                    subTitle: {
+                        required: true,
+                        maxlength: 5000,
+                    },
+                },
+                submitHandler: function () {
+                    for (instance in CKEDITOR.instances) {
+                        CKEDITOR.instances[instance].updateElement();
+                    }
+                    let formData = $("#addEvent").serialize();
+                    console.log(formData, "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+                    $.ajax({
+                        url: "/admin/insert-event",
+                        headers: {
+                            Authorization: localStorage.getItem("token"),
+                        },
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        method: "POST",
+                        type: "POST",
+
+                        success: function (_res) {
+                            console.log(_res, "ressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+                            let _id = _res.payload.eventUuid;
+                            console.log(_id, "_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id_id")
+                            KWACHA_MAIN.uploadMultipleEventImage(_id);
+
+                            $("#addEvent").trigger("reset");
+
+                            const msg = {
+                                title: "Confirmation",
+                                message: 'Operation performed successfully.',
+                                type: "success",
+                            };
+
+                            KWACHA_MAIN.sweetAlert(msg);
+
+                        },
+
+                        error: function (e) {
+                            $("#load").hide();
+                            let responseText = JSON.parse(e.responseText);
+                            let errorConfig = {
+                                title: "Error",
+                                message: responseText.message,
+                                type: "error",
+                            };
+                            KWACHA_MAIN.sweetAlert(errorConfig);
+                        },
+                    });
+                },
+            });
+        });
+        KWACHA_MAIN.uploadMultipleEventImage = function (_id) {
+            if (document.getElementById("e_image")) {
+                if (typeof document.getElementById("e_image").files !== "undefined" && document.getElementById("e_image").files.length > 0) {
+                    var formData = new FormData();
+                    var files = document.getElementById("e_image").files;
+                    console.log("Files received from frontend__________________:", files);
+                    for (var i = 0; i <= files.length; i++) {
+                        formData.append("multiple", files[i]);
+                    }
+                    formData.append("eventUuid", _id);
+                    $.ajax({
+                        url: "/admin/upload-event-image",
+                        data: formData,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: "POST",
+                        type: "POST",
+                        success: function () {
+                            $("#addNews").trigger("reset");
+                        },
+                        error: function (error) {
+                            let message = error.responseJSON ? error.responseJSON.message : "Something Went wrong!";
+                            KWACHA_MAIN.sweetAlert({ title: "Error", message: message, type: "error" });
+                        },
+                    });
+                }
+            }
+        };
+
+
+        $(document).on("click", ".upload-field", function () {
+            var file = $(this).parent().parent().parent().find(".input-file");
+            file.trigger("click");
+        });
+        $(document).on("change", ".input-file", function () {
+            $(this)
+                .parent()
+                .find(".form-control")
+                .val(
+                    $(this)
+                        .val()
+                        .replace(/C:\\fakepath\\/i, "")
+                );
+        });
+    </script>
+
+    <script>
+        var editor = CKEDITOR.replace("description");
+        editor.on("change", function (evt) {
+            $("#hidden").val(evt.editor.getData());
+        });
+    </script>
+
+    <script>
+        let priceField = document.getElementById("show-hide").style.display = "none"
+        const getValue = () => {
+            let value = document.getElementById("isPaid").value
+            if (value === "PAID") {
+                console.log(value)
+                document.getElementById("show-hide").style.display = "block"
+            } else {
+                document.getElementById("show-hide").style.display = "none"
+            }
+        }
+
+    </script>
+
+</html>

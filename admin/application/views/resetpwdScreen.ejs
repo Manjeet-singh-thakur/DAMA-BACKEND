@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Dama</title>
+    <!-- plugins:css -->
+    <link rel="icon" type="image/x-icon" href="theme/images/blacklogo.svg" />
+
+    <link rel="stylesheet" href="theme/vendors/feather/feather.css" />
+    <link
+      rel="stylesheet"
+      href="theme/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="theme/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="theme/css/min/sweetalert.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="theme/css/vertical-layout-light/style.css" />
+    <!-- endinject -->
+    <!-- <link rel="shortcut icon" href="theme/images/favicon.png" /> -->
+    <style>
+      .form {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+      }
+
+      .row.w-100.mx-0 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-scroller bg-dark">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="text-left py-5 px-4 px-sm-5 text-center">
+              <div class="form">
+                <div class="brand-logo">
+                  <img src="theme/images/auth/dama.png" alt="logo" height="120px" width="120px" />
+                </div>
+                <h4 style="font-weight: bold;">Reset Password</h4>
+                <h6 class="font-weight-light">
+                  Your new password must be diffrent from the old password
+                </h6>
+                <form
+                  class="pt-3"
+                  id="reset-password"
+                  method="post"
+                  role="form"
+                >
+                  <div class="form-group">
+                    <input
+                      onchange="closeMessage()"
+                      type="number"
+                      name="token"
+                      class="form-control"
+                      placeholder="Enter Token Number"
+                      id="token"
+                      onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                    />
+                    <span id="message1"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <input
+                      onchange="closeMessage()"
+                      type="password"
+                      name="newpwd"
+                      class="form-control"
+                      placeholder="New Password"
+                      id="newpwd"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      onchange="closeMessage()"
+                      type="password"
+                      name="confirmpwd"
+                      class="form-control"
+                      placeholder="Confirm Password"
+                      id="confirmpwd"
+                    />
+                    <span id="message"></span>
+                  </div>
+                  <div class="mt-3">
+                    <button
+                      style="background-color: #46a146; border-color: #429842; font-weight: 900;"
+                      class="btn btn-block btn-lg font-weight-medium auth-form-btn"
+                    >
+                      Send<span></span><span></span><span></span><span></span
+                      ><span></span>
+                    </button>
+                  </div>
+                  <div
+                    class="my-2 d-flex justify-content-between align-items-center"
+                  >
+                    <div class="form-check"></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <script>
+      const forgotPassword = async (event) => {
+        event.preventDefault();
+        console.log("data");
+        try {
+          let confirmPass = document.getElementById("confirmpwd").value.trim();
+          let password = document.getElementById("newpwd").value.trim();
+          let code = document.getElementById("token").value.trim();
+
+          let params = new URLSearchParams(window.location.search);
+          let email = params.get("email");
+
+          let data = {
+            email: email,
+            password: password,
+            code: code,
+          };
+          let response;
+          console.log("Data:", data);
+          if (password == confirmPass) {
+            response = await fetch(
+              "http://localhost:3002/admin/reset-admin-password",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              }
+            );
+          } else {
+            document.getElementById("message").innerHTML =
+              "Confirm password does not match with password";
+          }
+
+          console.log("Response:", response);
+          let result = await response.json();
+
+          console.log("Result:", result);
+          if (result.message == "You entered wrong token") {
+            document.getElementById("message1").innerHTML = result.message;
+          }
+
+          if (response.ok && result.status) {
+            console.log("Token:", result.payload.token);
+            localStorage.setItem("token", result.payload.token);
+            window.location.href = "/admin";
+          } else {
+            displayMessage(
+              result.message || "Please fill mandatory fields.",
+              "error"
+            );
+            swal(
+              "Error",
+              result.message || "Please fill mandatory fields.",
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      const closeMessage = () => {
+        document.getElementById("message").innerHTML = "";
+        document.getElementById("message1").innerHTML = "";
+      };
+
+      document
+        .getElementById("reset-password")
+        .addEventListener("submit", forgotPassword);
+    </script>
+  </body>
+</html>
